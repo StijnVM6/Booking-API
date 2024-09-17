@@ -1,11 +1,14 @@
 import express from "express";
 import usersRouter from "./routes/users/users.js";
+import customErrorHandler from "./middleware/customErrorHandler.js";
 
 const app = express();
 
 app.use(express.json());
 
 app.use("/users", usersRouter);
+
+app.use(customErrorHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello world!");
