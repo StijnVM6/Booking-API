@@ -37,7 +37,8 @@ router.post("/", async (req, res, next) => {
             bedroomCount,
             bathRoomCount,
             maxGuestCount,
-            rating
+            rating,
+            hostId
         } = req.body;
 
         const newProperty = await createProperty(
@@ -48,7 +49,8 @@ router.post("/", async (req, res, next) => {
             bedroomCount,
             bathRoomCount,
             maxGuestCount,
-            rating
+            rating,
+            hostId
         );
 
         res.status(201).json(newProperty);
@@ -69,7 +71,8 @@ router.put("/:id", async (req, res, next) => {
             bedroomCount,
             bathRoomCount,
             maxGuestCount,
-            rating
+            rating,
+            hostId
         } = req.body;
 
         await updatePropertyById(
@@ -80,7 +83,8 @@ router.put("/:id", async (req, res, next) => {
             bedroomCount,
             bathRoomCount,
             maxGuestCount,
-            rating
+            rating,
+            hostId
         );
 
         res.status(200).json({ message: `Property with id: ${id} succesfully updated.` });

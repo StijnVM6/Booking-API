@@ -10,7 +10,8 @@ const updatePropertyById = async (
     bedroomCount,
     bathRoomCount,
     maxGuestCount,
-    rating
+    rating,
+    hostId
 ) => {
     const primsa = new PrismaClient();
 
@@ -24,7 +25,8 @@ const updatePropertyById = async (
             bedroomCount: bedroomCount,
             bathRoomCount: bathRoomCount,
             maxGuestCount: maxGuestCount,
-            rating: rating
+            rating: rating,
+            hostId: hostId
         }
     });
 

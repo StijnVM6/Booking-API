@@ -8,7 +8,8 @@ const createProperty = async (
     bedroomCount,
     bathRoomCount,
     maxGuestCount,
-    rating
+    rating,
+    hostId
 ) => {
     const primsa = new PrismaClient();
 
@@ -21,7 +22,8 @@ const createProperty = async (
             bedroomCount: bedroomCount,
             bathRoomCount: bathRoomCount,
             maxGuestCount: maxGuestCount,
-            rating: rating
+            rating: rating,
+            hostId: hostId
         }
     });
 
