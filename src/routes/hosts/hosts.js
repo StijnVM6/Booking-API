@@ -10,8 +10,24 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const hosts = await getHosts();
-        res.status(200).json(hosts);
+        const {
+            username,
+            name,
+            email,
+            phoneNumber
+        } = req.query;
+
+        const hosts = await getHosts(
+            username,
+            name,
+            email,
+            phoneNumber
+        );
+
+        if (hosts === null)
+            res.status(404).json({ message: "No such hosts found from request queries." });
+        else
+            res.status(200).json(hosts);
     } catch (err) {
         next(err)
     }

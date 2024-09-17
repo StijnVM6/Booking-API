@@ -18,11 +18,11 @@ const createProperty = async (
             title: title,
             description: description,
             location: location,
-            pricePerNight: pricePerNight,
-            bedroomCount: bedroomCount,
-            bathRoomCount: bathRoomCount,
-            maxGuestCount: maxGuestCount,
-            rating: rating,
+            pricePerNight: Number.parseFloat(pricePerNight),
+            bedroomCount: Number(bedroomCount),
+            bathRoomCount: Number(bathRoomCount),
+            maxGuestCount: Number(maxGuestCount),
+            rating: Number(rating),
             hostId: hostId
         }
     });

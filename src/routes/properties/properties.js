@@ -10,8 +10,28 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const properties = await getProperties();
-        res.status(200).json(properties);
+        const {
+            location,
+            pricePerNight,
+            bedroomCount,
+            bathRoomCount,
+            maxGuestCount,
+            rating
+        } = req.query;
+
+        const properties = await getProperties(
+            location,
+            pricePerNight,
+            bedroomCount,
+            bathRoomCount,
+            maxGuestCount,
+            rating
+        );
+
+        if (properties === null)
+            res.status(404).json({ message: "No such properties found from request queries." });
+        else
+            res.status(200).json(properties);
     } catch (err) {
         next(err)
     }

@@ -1,8 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 
-const getAmenities = async () => {
+const getAmenities = async (name) => {
     const primsa = new PrismaClient();
-    return await primsa.amenity.findMany();
+    const amenities = await primsa.amenity.findMany({
+        where: { name: name }
+    });
+
+    if (amenities.count <= 0) return null;
+    else return amenities;
 };
 
 export default getAmenities;

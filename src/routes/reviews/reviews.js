@@ -10,8 +10,22 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const reviews = await getReviews();
-        res.status(200).json(reviews);
+        const {
+            rating,
+            propertyId,
+            userId
+        } = req.query;
+
+        const reviews = await getReviews(
+            rating,
+            propertyId,
+            userId
+        );
+
+        if (reviews === null)
+            res.status(404).json({ message: "No such reviews found from request queries." });
+        else
+            res.status(200).json(reviews);
     } catch (err) {
         next(err)
     }

@@ -15,8 +15,8 @@ const createBooking = async (
         data: {
             checkinDate: checkinDate,
             checkoutDate: checkoutDate,
-            numberOfGuests: numberOfGuests,
-            totalPrice: totalPrice,
+            numberOfGuests: Number(numberOfGuests),
+            totalPrice: Number.parseFloat(totalPrice),
             bookingStatus: bookingStatus,
             propertyId: propertyId,
             userId: userId

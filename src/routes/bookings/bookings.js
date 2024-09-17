@@ -10,8 +10,30 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const bookings = await getBookings();
-        res.status(200).json(bookings);
+        const {
+            checkinDate,
+            checkoutDate,
+            numberOfGuests,
+            totalPrice,
+            bookingStatus,
+            propertyId,
+            userId
+        } = req.query;
+
+        const bookings = await getBookings(
+            checkinDate,
+            checkoutDate,
+            numberOfGuests,
+            totalPrice,
+            bookingStatus,
+            propertyId,
+            userId
+        );
+
+        if (bookings === null)
+            res.status(404).json({ message: "No such bookings found from request queries." });
+        else
+            res.status(200).json(bookings);
     } catch (err) {
         next(err)
     }

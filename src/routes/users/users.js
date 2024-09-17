@@ -10,8 +10,24 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const users = await getUsers();
-        res.status(200).json(users);
+        const {
+            username,
+            name,
+            email,
+            phoneNumber
+        } = req.query;
+
+        const users = await getUsers(
+            username,
+            name,
+            email,
+            phoneNumber
+        );
+
+        if (users === null)
+            res.status(404).json({ message: "No such users found from request queries." });
+        else
+            res.status(200).json(users);
     } catch (err) {
         next(err)
     }

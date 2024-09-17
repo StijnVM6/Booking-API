@@ -20,8 +20,6 @@ app.use("/properties", propertiesRouter);
 app.use("/bookings", bookingsRouter);
 app.use("/reviews", reviewsRouter);
 
-
-
 app.use(customErrorHandler);
 
 app.get("/", (req, res) => {

@@ -10,8 +10,13 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        const amenities = await getAmenities();
-        res.status(200).json(amenities);
+        const { name } = req.query;
+        const amenities = await getAmenities(name);
+
+        if (amenities === null)
+            res.status(404).json({ message: "No such amenities found from request queries." });
+        else
+            res.status(200).json(amenities);
     } catch (err) {
         next(err)
     }
