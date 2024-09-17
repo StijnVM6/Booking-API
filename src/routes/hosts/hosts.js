@@ -5,6 +5,7 @@ import createHost from "../../services/hosts/createHost.js";
 import updateHostById from "../../services/hosts/updateHostById.js";
 import deleteHostById from "../../services/hosts/deleteHostById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
+import authMiddleware from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.get("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const {
             username,
@@ -71,7 +72,7 @@ router.post("/", async (req, res, next) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         const {
@@ -101,7 +102,7 @@ router.put("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (res, req, next) => {
     try {
         const { id } = req.params;
         await deleteHostById(id);

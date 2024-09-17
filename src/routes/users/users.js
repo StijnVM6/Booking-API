@@ -5,6 +5,7 @@ import createUser from "../../services/users/createUser.js";
 import updateUserById from "../../services/users/updateUserById.js";
 import deleteUserById from "../../services/users/deleteUserById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
+import authMiddleware from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.get("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const {
             username,
@@ -69,7 +70,7 @@ router.post("/", async (req, res, next) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         const {
@@ -97,7 +98,7 @@ router.put("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (res, req, next) => {
     try {
         const { id } = req.params;
         await deleteUserById(id);

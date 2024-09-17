@@ -1,27 +1,28 @@
 import { PrismaClient } from "@prisma/client";
-import notFoundError from "../../errors/notFoundError.js";
+import getReviewById from "./getReviewById.js";
 
 const updateReviewById = async (
+    id,
     rating,
     comment,
     propertyId,
-    userId
+    activeUserId
 ) => {
     const primsa = new PrismaClient();
 
+    await getReviewById(id);
+
     const review = await primsa.review.updateMany({
-        where: { id: id },
+        where: { id: id, userId: activeUserId },
         data: {
             rating: rating,
             comment: comment,
-            propertyId: propertyId,
-            userId: userId
+            propertyId: propertyId
         }
     });
 
-    if (!review) {
-        throw new notFoundError("Review", id);
-    } else return review;
+    if (review.count <= 0) return null;
+    else return review;
 };
 
 export default updateReviewById;

@@ -1,16 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import notFoundError from "../../errors/notFoundError.js";
+import getReviewById from "./getReviewById.js"
 
-const deleteReviewById = async (id) => {
+const deleteReviewById = async (id, activeUserId) => {
     const primsa = new PrismaClient();
 
+    await getReviewById(id);
+
     const review = await primsa.review.deleteMany({
-        where: { id: id }
+        where: { id: id, userId: activeUserId }
     });
 
-    if (review.count <= 0) {
-        throw new notFoundError("Review", id);
-    } else return id;
+    if (review.count <= 0) return null;
+    else return id;
 };
 
 export default deleteReviewById;

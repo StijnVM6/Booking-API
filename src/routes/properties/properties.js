@@ -5,6 +5,7 @@ import createProperty from "../../services/properties/createProperty.js";
 import updatePropertyById from "../../services/properties/updatePropertyById.js";
 import deletePropertyById from "../../services/properties/deletePropertyById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
+import authMiddleware from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -47,7 +48,7 @@ router.get("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const {
             title,
@@ -79,7 +80,7 @@ router.post("/", async (req, res, next) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
 
@@ -113,7 +114,7 @@ router.put("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (res, req, next) => {
     try {
         const { id } = req.params;
         await deletePropertyById(id);

@@ -5,6 +5,7 @@ import createAmenity from "../../services/amenities/createAmenity.js";
 import updateAmenityById from "../../services/amenities/updateAmenityById.js";
 import deleteAmenityById from "../../services/amenities/deleteAmenityById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
+import authMiddleware from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const { name } = req.body;
         const newAmenity = await createAmenity(name);
@@ -42,7 +43,7 @@ router.post("/", async (req, res, next) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
@@ -53,7 +54,7 @@ router.put("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (res, req, next) => {
     try {
         const { id } = req.params;
         await deleteAmenityById(id);

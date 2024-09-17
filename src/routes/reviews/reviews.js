@@ -5,6 +5,7 @@ import createReview from "../../services/reviews/createReview.js";
 import updateReviewById from "../../services/reviews/updateReviewById.js";
 import deleteReviewById from "../../services/reviews/deleteReviewById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
+import authMiddleware from "../../middleware/auth.js";
 
 const router = express.Router();
 
@@ -41,7 +42,7 @@ router.get("/:id", async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.post("/", async (req, res, next) => {
+router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const {
             rating,
@@ -63,36 +64,49 @@ router.post("/", async (req, res, next) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
 
         const {
             rating,
             comment,
-            propertyId,
-            userId
+            propertyId
         } = req.body;
 
-        await updateReviewById(
+        const activeUserId = req.user.userId;
+
+        const review = await updateReviewById(
             id,
             rating,
             comment,
             propertyId,
-            userId
+            activeUserId
         );
 
-        res.status(200).json({ message: `Review with id: ${id} succesfully updated.` });
+        if (review === null) {
+            res.status(401).json({ message: `Only the author of this review can edit this review.` });
+        } else {
+            res.status(200).json({ message: `Review with id: ${id} succesfully updated.` });
+        }
+
     } catch (err) {
         next(err)
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (res, req, next) => {
     try {
         const { id } = req.params;
-        await deleteReviewById(id);
-        res.status(200).json({ message: `Review with id: ${id} succesfully deleted.` });
+        const activeUserId = req.user.userId;
+
+        const review = await deleteReviewById(id, activeUserId);
+
+        if (review === null) {
+            res.status(401).json({ message: `Only the author of this review can delete this review.` });
+        } else {
+            res.status(200).json({ message: `Review with id: ${id} succesfully deleted.` });
+        }
     } catch (err) {
         next(err)
     }
