@@ -6,11 +6,15 @@ import hostsRouter from "./routes/hosts/hosts.js";
 import propertiesRouter from "./routes/properties/properties.js";
 import bookingsRouter from "./routes/bookings/bookings.js";
 import reviewsRouter from "./routes/reviews/reviews.js";
+import "dotenv/config";
+import logger from "./middleware/logger.js";
 import customErrorHandler from "./middleware/customErrorHandler.js";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(logger);
 
 app.use("/login", loginRouter);
 app.use("/users", usersRouter);

@@ -1,0 +1,2 @@
+{"level":"info","message":"POST /login | Status: 200 | Duration: 4ms ","service":"booking-api"}
+{"level":"info","message":"GET /users/d4567890-12ef-0123-4567-89abcdef0123 | Status: 200 | Duration: 3ms ","service":"booking-api"}
