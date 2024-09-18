@@ -6,7 +6,7 @@ const login = async (username, password) => {
     const secretKey = process.env.AUTH_SECRET_KEY;
     const user = await prisma.user.findFirst({
         where: {
-            username, password
+            username: username, password: password
         }
     });
 
