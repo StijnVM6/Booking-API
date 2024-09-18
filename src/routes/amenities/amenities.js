@@ -47,14 +47,14 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
-        await updateAmenityById(name);
+        await updateAmenityById(id, name);
         res.status(200).json({ message: `Amenity with id: ${id} succesfully updated.` });
     } catch (err) {
         next(err)
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", authMiddleware, async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         await deleteAmenityById(id);

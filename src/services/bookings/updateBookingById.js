@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const updateBookingById = async (
+    id,
     checkinDate,
     checkoutDate,
     numberOfGuests,

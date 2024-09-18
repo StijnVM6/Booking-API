@@ -81,6 +81,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
 router.put("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
+
         const {
             checkinDate,
             checkoutDate,
@@ -108,7 +109,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", authMiddleware, async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         await deleteBookingById(id);

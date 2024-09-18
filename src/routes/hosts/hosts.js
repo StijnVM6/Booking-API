@@ -102,7 +102,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", authMiddleware, async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         await deleteHostById(id);

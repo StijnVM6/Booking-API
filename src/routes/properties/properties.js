@@ -97,6 +97,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
         } = req.body;
 
         await updatePropertyById(
+            id,
             title,
             description,
             location,
@@ -114,7 +115,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
     }
 }, notFoundErrorHandler);
 
-router.delete("/:id", authMiddleware, async (res, req, next) => {
+router.delete("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
         await deletePropertyById(id);
