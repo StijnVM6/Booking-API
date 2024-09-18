@@ -63,7 +63,7 @@ model Property {
   bookings      Booking[] // Implicit relation to many bookings
   reviews       Review[] // Implicit relation to many reviews
   // relation references
-  hosts         Host      @relation(fields: [hostId], references: [id])
+  hosts         Host      @relation(fields: [hostId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   hostId        String // Explicit relation to host id
 
   @@index([hostId])
@@ -77,9 +77,9 @@ model Booking {
   totalPrice     Float
   bookingStatus  String
   // relation references
-  properties     Property @relation(fields: [propertyId], references: [id])
+  properties     Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   propertyId     String // Explicit relation field to the property id
-  users          User     @relation(fields: [userId], references: [id])
+  users          User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId         String // Explicit relation to user id
 
   @@index([propertyId])
@@ -91,9 +91,9 @@ model Review {
   rating     Int
   comment    String
   // relation references
-  properties Property @relation(fields: [propertyId], references: [id])
+  properties Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   propertyId String // Explicit relation to property id
-  users      User     @relation(fields: [userId], references: [id])
+  users      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId     String // Explicit relation to user id
 
   @@index([propertyId])
