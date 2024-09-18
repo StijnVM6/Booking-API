@@ -11,9 +11,9 @@ const createProperty = async (
     rating,
     hostId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const property = await primsa.property.create({
+    const property = await prisma.property.create({
         data: {
             title: title,
             description: description,

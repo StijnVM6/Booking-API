@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const deleteBookingById = async (id) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const booking = await primsa.booking.deleteMany({
+    const booking = await prisma.booking.deleteMany({
         where: { id: id }
     });
 

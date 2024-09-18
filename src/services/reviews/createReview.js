@@ -6,9 +6,9 @@ const createReview = async (
     propertyId,
     userId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const review = await primsa.review.create({
+    const review = await prisma.review.create({
         data: {
             rating: rating,
             comment: comment,

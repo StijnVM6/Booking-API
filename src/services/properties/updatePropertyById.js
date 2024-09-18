@@ -13,9 +13,9 @@ const updatePropertyById = async (
     rating,
     hostId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const property = await primsa.property.updateMany({
+    const property = await prisma.property.updateMany({
         where: { id: id },
         data: {
             title: title,

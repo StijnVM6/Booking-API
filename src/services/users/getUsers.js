@@ -6,9 +6,9 @@ const getUsers = async (
     email,
     phoneNumber
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const users = await primsa.user.findMany({
+    const users = await prisma.user.findMany({
         where: {
             username: username,
             name: name,

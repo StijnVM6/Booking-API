@@ -10,9 +10,9 @@ const updateUserById = async (
     phoneNumber,
     profilePicture
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const user = await primsa.user.updateMany({
+    const user = await prisma.user.updateMany({
         where: { id: id },
         data: {
             username: username,

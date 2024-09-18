@@ -2,8 +2,7 @@ import { PrismaClient } from "@prisma/client";
 // import getReviewById from "./getReviewById.js"
 
 const deleteReviewById = async (id) => {
-    const primsa = new PrismaClient();
-
+    const prisma = new PrismaClient();
     /*
     await getReviewById(id);
 
@@ -14,8 +13,7 @@ const deleteReviewById = async (id) => {
     if (review.count <= 0) return null;
     else return id;
     */
-
-    const review = primsa.review.deleteMany({
+    const review = prisma.review.deleteMany({
         where: { id: id }
     });
 

@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const deleteHostById = async (id) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const host = await primsa.host.deleteMany({
+    const host = await prisma.host.deleteMany({
         where: { id: id }
     });
 

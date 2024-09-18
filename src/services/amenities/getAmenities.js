@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
 const getAmenities = async (name) => {
-    const primsa = new PrismaClient();
-    const amenities = await primsa.amenity.findMany({
+    const prisma = new PrismaClient();
+    const amenities = await prisma.amenity.findMany({
         where: { name: name }
     });
 

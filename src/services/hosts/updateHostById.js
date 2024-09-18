@@ -11,9 +11,9 @@ const updateHostById = async (
     profilePicture,
     aboutMe
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const host = await primsa.host.updateMany({
+    const host = await prisma.host.updateMany({
         where: { id: id },
         data: {
             username: username,

@@ -9,9 +9,9 @@ const createHost = async (
     profilePicture,
     aboutMe
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const host = await primsa.host.create({
+    const host = await prisma.host.create({
         data: {
             username: username,
             password: password,

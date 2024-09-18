@@ -8,7 +8,7 @@ const getProperties = async (
     maxGuestCount,
     rating
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
     if (pricePerNight) pricePerNight = Number.parseFloat(pricePerNight);
     if (bedroomCount) bedroomCount = Number(bedroomCount);
@@ -16,7 +16,7 @@ const getProperties = async (
     if (maxGuestCount) maxGuestCount = Number(maxGuestCount);
     if (rating) rating = Number(rating);
 
-    const properties = await primsa.property.findMany({
+    const properties = await prisma.property.findMany({
         where: {
             location: location,
             pricePerNight: pricePerNight,

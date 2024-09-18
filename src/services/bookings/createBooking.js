@@ -9,9 +9,9 @@ const createBooking = async (
     propertyId,
     userId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const booking = await primsa.booking.create({
+    const booking = await prisma.booking.create({
         data: {
             checkinDate: checkinDate,
             checkoutDate: checkoutDate,

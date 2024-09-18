@@ -9,12 +9,12 @@ const getBookings = async (
     propertyId,
     userId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
     if (numberOfGuests) numberOfGuests = Number(numberOfGuests);
     if (totalPrice) totalPrice = Number.parseFloat(totalPrice);
 
-    const bookings = await primsa.booking.findMany({
+    const bookings = await prisma.booking.findMany({
         where: {
             checkinDate: checkinDate,
             checkoutDate: checkoutDate,

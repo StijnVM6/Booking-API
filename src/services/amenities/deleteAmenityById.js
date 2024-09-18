@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const deleteAmenityById = async (id) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const amenity = await primsa.amenity.deleteMany({
+    const amenity = await prisma.amenity.deleteMany({
         where: { id: id }
     });
 

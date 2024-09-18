@@ -5,9 +5,9 @@ const getReviews = async (
     propertyId,
     userId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const reviews = await primsa.review.findMany({
+    const reviews = await prisma.review.findMany({
         where: {
             rating: rating,
             propertyId: propertyId,

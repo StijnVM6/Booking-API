@@ -7,14 +7,13 @@ const updateReviewById = async (
     comment,
     propertyId
 ) => {
-    const primsa = new PrismaClient();
-
+    const prisma = new PrismaClient();
     /*
     // Check if review with id exists, returns 404 NotFoundError if not. 
     await getReviewById(id);
 
     // Checks if review with id has the active user as author.
-    const review = await primsa.review.updateMany({
+    const review = await prisma.review.updateMany({
         where: { id: id, userId: activeUserId },
         data: {
             rating: rating,
@@ -26,8 +25,7 @@ const updateReviewById = async (
     if (review.count <= 0) return null;
     else return review;
     */
-
-    const review = await primsa.review.updateMany({
+    const review = await prisma.review.updateMany({
         where: { id: id },
         data: {
             rating: rating,

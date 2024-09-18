@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const getHostById = async (id) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const host = await primsa.host.findUnique({
+    const host = await prisma.host.findUnique({
         where: { id: id }
     });
 

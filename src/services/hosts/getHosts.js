@@ -6,8 +6,8 @@ const getHosts = async (
     email,
     phoneNumber
 ) => {
-    const primsa = new PrismaClient();
-    const host = await primsa.host.findMany({
+    const prisma = new PrismaClient();
+    const host = await prisma.host.findMany({
         where: {
             username: username,
             name: name,

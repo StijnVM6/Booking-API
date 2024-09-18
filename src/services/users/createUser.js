@@ -8,9 +8,9 @@ const createUser = async (
     phoneNumber,
     profilePicture
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const user = await primsa.user.create({
+    const user = await prisma.user.create({
         data: {
             username: username,
             password: password,

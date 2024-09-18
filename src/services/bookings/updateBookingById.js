@@ -11,9 +11,9 @@ const updateBookingById = async (
     propertyId,
     userId
 ) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const booking = await primsa.booking.updateMany({
+    const booking = await prisma.booking.updateMany({
         where: { id: id },
         data: {
             checkinDate: checkinDate,

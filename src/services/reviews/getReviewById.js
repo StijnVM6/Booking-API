@@ -2,9 +2,17 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const getReviewById = async (id) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const review = await primsa.review.findUnique({
+
+    console.log("----------------------------------");
+    console.log("----------------------------------");
+    console.log("id is: ", id);
+
+    console.log("----------------------------------");
+    console.log("----------------------------------");
+
+    const review = await prisma.review.findUnique({
         where: { id: id }
     });
 

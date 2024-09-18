@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
 
 const updateAmenityById = async (id, name) => {
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const amenity = await primsa.amenity.updateMany({
+    const amenity = await prisma.amenity.updateMany({
         where: { id: id },
         data: { name: name }
     });
