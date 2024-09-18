@@ -4,14 +4,6 @@ import notFoundError from "../../errors/notFoundError.js";
 const getReviewById = async (id) => {
     const prisma = new PrismaClient();
 
-
-    console.log("----------------------------------");
-    console.log("----------------------------------");
-    console.log("id is: ", id);
-
-    console.log("----------------------------------");
-    console.log("----------------------------------");
-
     const review = await prisma.review.findUnique({
         where: { id: id }
     });
