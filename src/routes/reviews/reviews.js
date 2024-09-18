@@ -89,6 +89,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
             propertyId
         } = req.body;
 
+        /*
         const activeUserId = req.user.userId;
 
         const review = await updateReviewById(
@@ -103,8 +104,16 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
             res.status(401).json({ message: `Only the author of this review can edit this review.` });
         } else {
             res.status(200).json({ message: `Review with id: ${id} succesfully updated.` });
-        }
+        }*/
 
+        await updateReviewById(
+            id,
+            rating,
+            comment,
+            propertyId
+        );
+
+        res.status(200).json({ message: `Review with id: ${id} succesfully updated.` });
     } catch (err) {
         next(err)
     }
@@ -113,6 +122,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 router.delete("/:id", authMiddleware, async (req, res, next) => {
     try {
         const { id } = req.params;
+        /*
         const activeUserId = req.user.userId;
 
         const review = await deleteReviewById(id, activeUserId);
@@ -122,6 +132,9 @@ router.delete("/:id", authMiddleware, async (req, res, next) => {
         } else {
             res.status(200).json({ message: `Review with id: ${id} succesfully deleted.` });
         }
+        */
+        await deleteReviewById(id);
+        res.status(200).json({ message: `Review with id: ${id} succesfully deleted.` });
     } catch (err) {
         next(err)
     }
