@@ -26,7 +26,7 @@ const updateBookingById = async (
         }
     });
 
-    if (!booking) {
+    if (booking.count <= 0) {
         throw new notFoundError("Booking", id);
     } else return booking;
 };

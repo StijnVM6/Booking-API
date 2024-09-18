@@ -24,7 +24,7 @@ const updateUserById = async (
         }
     });
 
-    if (!user) {
+    if (user.count <= 0) {
         throw new notFoundError("User", id);
     } else return user;
 };

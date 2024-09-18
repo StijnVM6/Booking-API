@@ -6,6 +6,7 @@ import updateHostById from "../../services/hosts/updateHostById.js";
 import deleteHostById from "../../services/hosts/deleteHostById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 const router = express.Router();
 
@@ -56,17 +57,30 @@ router.post("/", authMiddleware, async (req, res, next) => {
             aboutMe
         } = req.body;
 
-        const newHost = await createHost(
+        const args = {
             username,
             password,
             name,
             email,
-            phoneNumber,
-            profilePicture,
-            aboutMe
-        );
+            phoneNumber
+        };
 
-        res.status(201).json(newHost);
+        const missingArguments = await checkForMissingArguments(args, "host");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newHost = await createHost(
+                username,
+                password,
+                name,
+                email,
+                phoneNumber,
+                profilePicture,
+                aboutMe
+            );
+            res.status(201).json(newHost);
+        }
     } catch (err) {
         next(err)
     }

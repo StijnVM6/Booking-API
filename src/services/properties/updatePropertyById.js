@@ -30,7 +30,7 @@ const updatePropertyById = async (
         }
     });
 
-    if (!property) {
+    if (property.count <= 0) {
         throw new notFoundError("Property", id);
     } else return property;
 };

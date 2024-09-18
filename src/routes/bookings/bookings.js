@@ -6,6 +6,7 @@ import updateBookingById from "../../services/bookings/updateBookingById.js";
 import deleteBookingById from "../../services/bookings/deleteBookingById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 const router = express.Router();
 
@@ -62,7 +63,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
             userId
         } = req.body;
 
-        const newBooking = await createBooking(
+        const args = {
             checkinDate,
             checkoutDate,
             numberOfGuests,
@@ -70,9 +71,24 @@ router.post("/", authMiddleware, async (req, res, next) => {
             bookingStatus,
             propertyId,
             userId
-        );
+        };
 
-        res.status(201).json(newBooking);
+        const missingArguments = await checkForMissingArguments(args, "booking");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newBooking = await createBooking(
+                checkinDate,
+                checkoutDate,
+                numberOfGuests,
+                totalPrice,
+                bookingStatus,
+                propertyId,
+                userId
+            );
+            res.status(201).json(newBooking);
+        }
     } catch (err) {
         next(err)
     }

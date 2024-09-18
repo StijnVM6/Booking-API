@@ -6,6 +6,7 @@ import updateAmenityById from "../../services/amenities/updateAmenityById.js";
 import deleteAmenityById from "../../services/amenities/deleteAmenityById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 const router = express.Router();
 
@@ -26,8 +27,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
-        const user = await getAmenityById(id);
-        res.status(200).json(user);
+        const amenity = await getAmenityById(id);
+        res.status(200).json(amenity);
     } catch (err) {
         next(err)
     }
@@ -36,8 +37,23 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", authMiddleware, async (req, res, next) => {
     try {
         const { name } = req.body;
-        const newAmenity = await createAmenity(name);
-        res.status(201).json(newAmenity);
+
+        const args = { name };
+        const missingArguments = await checkForMissingArguments(args, "amenity");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newAmenity = await createAmenity(name);
+            /*
+            if (newAmenity === null) {
+                res.status(200).json({ message: `Amenity with name: ${name} already exists. Request refused.` });
+            } else {
+                res.status(201).json(newAmenity);
+            }
+            */
+            res.status(201).json(newAmenity);
+        }
     } catch (err) {
         next(err)
     }

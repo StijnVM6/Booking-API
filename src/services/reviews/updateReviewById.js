@@ -36,7 +36,7 @@ const updateReviewById = async (
         }
     });
 
-    if (!review) {
+    if (review.count <= 0) {
         throw new notFoundError("Review", id);
     } else return review;
 };

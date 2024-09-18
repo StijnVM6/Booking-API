@@ -6,6 +6,7 @@ import updateReviewById from "../../services/reviews/updateReviewById.js";
 import deleteReviewById from "../../services/reviews/deleteReviewById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 // ------------
 // --- NOTE ---
@@ -66,14 +67,25 @@ router.post("/", authMiddleware, async (req, res, next) => {
             userId
         } = req.body;
 
-        const newReview = await createReview(
+        const args = {
             rating,
             comment,
-            propertyId,
-            userId
-        );
+            propertyId
+        };
 
-        res.status(201).json(newReview);
+        const missingArguments = await checkForMissingArguments(args, "review");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newReview = await createReview(
+                rating,
+                comment,
+                propertyId,
+                userId
+            );
+            res.status(201).json(newReview);
+        }
     } catch (err) {
         next(err)
     }
@@ -91,7 +103,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
 
         /*
         const activeUserId = req.user.userId;
-
+ 
         const review = await updateReviewById(
             id,
             rating,
@@ -99,7 +111,7 @@ router.put("/:id", authMiddleware, async (req, res, next) => {
             propertyId,
             activeUserId
         );
-
+ 
         if (review === null) {
             res.status(401).json({ message: `Only the author of this review can edit this review.` });
         } else {

@@ -6,6 +6,7 @@ import updateUserById from "../../services/users/updateUserById.js";
 import deleteUserById from "../../services/users/deleteUserById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 const router = express.Router();
 
@@ -55,16 +56,29 @@ router.post("/", authMiddleware, async (req, res, next) => {
             profilePicture
         } = req.body;
 
-        const newUser = await createUser(
+        const args = {
             username,
             password,
             name,
             email,
-            phoneNumber,
-            profilePicture
-        );
+            phoneNumber
+        };
 
-        res.status(201).json(newUser);
+        const missingArguments = await checkForMissingArguments(args, "user");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newUser = await createUser(
+                username,
+                password,
+                name,
+                email,
+                phoneNumber,
+                profilePicture
+            );
+            res.status(201).json(newUser);
+        }
     } catch (err) {
         next(err)
     }

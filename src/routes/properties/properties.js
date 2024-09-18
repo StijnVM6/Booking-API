@@ -6,6 +6,7 @@ import updatePropertyById from "../../services/properties/updatePropertyById.js"
 import deletePropertyById from "../../services/properties/deletePropertyById.js";
 import notFoundErrorHandler from "../../middleware/notFoundErrorHandler.js";
 import authMiddleware from "../../middleware/auth.js";
+import checkForMissingArguments from "../../services/checkForMissingArguments.js";
 
 const router = express.Router();
 
@@ -41,8 +42,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
-        const user = await getPropertyById(id);
-        res.status(200).json(user);
+        const property = await getPropertyById(id);
+        res.status(200).json(property);
     } catch (err) {
         next(err)
     }
@@ -62,7 +63,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
             hostId
         } = req.body;
 
-        const newProperty = await createProperty(
+        const args = {
             title,
             description,
             location,
@@ -72,9 +73,26 @@ router.post("/", authMiddleware, async (req, res, next) => {
             maxGuestCount,
             rating,
             hostId
-        );
+        };
 
-        res.status(201).json(newProperty);
+        const missingArguments = await checkForMissingArguments(args, "booking");
+
+        if (missingArguments != null) {
+            res.status(400).json({ message: missingArguments });
+        } else {
+            const newProperty = await createProperty(
+                title,
+                description,
+                location,
+                pricePerNight,
+                bedroomCount,
+                bathRoomCount,
+                maxGuestCount,
+                rating,
+                hostId
+            );
+            res.status(201).json(newProperty);
+        }
     } catch (err) {
         next(err)
     }

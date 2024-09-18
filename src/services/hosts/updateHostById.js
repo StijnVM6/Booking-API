@@ -26,7 +26,7 @@ const updateHostById = async (
         }
     });
 
-    if (!host) {
+    if (host.count <= 0) {
         throw new notFoundError("Host", id);
     } else return host;
 };

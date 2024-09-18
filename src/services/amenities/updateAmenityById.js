@@ -9,7 +9,7 @@ const updateAmenityById = async (id, name) => {
         data: { name: name }
     });
 
-    if (!amenity) {
+    if (amenity.count <= 0) {
         throw new notFoundError("Amenity", id);
     } else return amenity;
 };
