@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-// import getReviewById from "./getReviewById.js";
+import notFoundError from "../../errors/notFoundError.js";
 
 const updateReviewById = async (
     id,
