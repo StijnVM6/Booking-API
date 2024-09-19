@@ -13,7 +13,7 @@ const deleteReviewById = async (id) => {
     if (review.count <= 0) return null;
     else return id;
     */
-    const review = prisma.review.deleteMany({
+    const review = await prisma.review.deleteMany({
         where: { id: id }
     });
 
