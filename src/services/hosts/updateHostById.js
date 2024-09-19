@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import notFoundError from "../../errors/notFoundError.js";
+import NotFoundError from "../../errors/NotFoundError.js";
 
 const updateHostById = async (
     id,
@@ -27,7 +27,7 @@ const updateHostById = async (
     });
 
     if (host.count <= 0) {
-        throw new notFoundError("Host", id);
+        throw new NotFoundError("Host", id);
     } else return host;
 };
 

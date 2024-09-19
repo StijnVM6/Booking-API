@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import notFoundError from "../../errors/notFoundError.js";
+import NotFoundError from "../../errors/NotFoundError.js";
 
 const getAmenityById = async (id) => {
     const prisma = new PrismaClient();
@@ -9,7 +9,7 @@ const getAmenityById = async (id) => {
     });
 
     if (!amenity) {
-        throw new notFoundError("Amenity", id);
+        throw new NotFoundError("Amenity", id);
     } else return amenity;
 };
 

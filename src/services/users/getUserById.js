@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import notFoundError from "../../errors/notFoundError.js";
+import NotFoundError from "../../errors/NotFoundError.js";
 
 const getUserById = async (id) => {
     const prisma = new PrismaClient();
@@ -9,7 +9,7 @@ const getUserById = async (id) => {
     });
 
     if (!user) {
-        throw new notFoundError("User", id);
+        throw new NotFoundError("User", id);
     } else return user;
 };
 
