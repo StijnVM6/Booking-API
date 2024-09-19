@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import notFoundError from "../../errors/notFoundError.js";
-import getUserById from "./getUserById.js";
 
 const deleteUserById = async (id) => {
     const primsa = new PrismaClient();
