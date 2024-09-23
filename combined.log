@@ -2544,3 +2544,6 @@
 {"level":"info","message":"POST /reviews | Status: 200 | Duration: 5ms ","service":"booking-api"}
 {"level":"info","message":"POST /login | Status: 200 | Duration: 0ms ","service":"booking-api"}
 {"level":"info","message":"POST /login | Status: 200 | Duration: 0ms ","service":"booking-api"}
+{"level":"info","message":"POST /bookings | Status: 500 | Duration: 14ms ","service":"booking-api"}
+{"level":"info","message":"POST /bookings | Status: 401 | Duration: 4ms ","service":"booking-api"}
+{"level":"info","message":"POST /amenities | Status: 401 | Duration: 1ms ","service":"booking-api"}

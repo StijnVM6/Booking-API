@@ -16,7 +16,7 @@ const checkForMissingArguments = async (details, type) => {
         });
         missingArguments.push(`==> These required arguments are missing. Create new ${type} failed.`);
         return missingArguments;
-    } else return missingArguments = null;
+    } else return null;
 };
 
 export default checkForMissingArguments;
